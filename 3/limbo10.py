@@ -1,0 +1,14 @@
+import math
+from itertools import product
+
+
+def main(a, b, y):
+    return sum(
+        45 * ((c**3 + y + 34) ** 7)
+        + (j**2) / 23
+        + 31 * (math.cos(1 + j**3) ** 4)
+        for c, j in product(range(1, a + 1), range(1, b + 1))
+    )
+
+print(main(7, 8, -0.24))
+print(main(3, 5, 0.71))
