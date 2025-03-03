@@ -1,12 +1,11 @@
-from math import log2
+from math import sqrt, log2
 
 
 def main(x_bar, y_bar, z_bar):
     n = len(x_bar)
-
-    def recursive_sum(i, current_sum):
-        if i > n:
-            return current_sum
+    summa = 0.0
+    i = 1
+    while i <= n:
         step1 = z_bar[n - i] ** 3
         if i % 2 == 0:
             step2 = 58 * x_bar[n - (i // 2)]
@@ -15,9 +14,10 @@ def main(x_bar, y_bar, z_bar):
         step3 = y_bar[n - i] ** 2
         a = step1 + step2 + step3
         term = 2 ** ((5/2) * log2(a))
-        return recursive_sum(i + 1, current_sum + term)
-    total = recursive_sum(1, 0.0)
-    return 64 * 39 * total
+        summa += term
+        i += 1
+    return 64 * 39 * summa
+
 
 # Проверочные вызовы
 print(main([-0.5, 0.97, 0.22], [0.37, -0.47, 0.87], [-0.01, -0.73, 0.95]))    # ≈ 6.30e+07
