@@ -45,7 +45,6 @@ def one(items, gdb_case, mirah_case, arc_case):
     elif item == 'arc':
         return arc_case
 
-
 def main(items):
     return one(
         items,

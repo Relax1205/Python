@@ -13,18 +13,13 @@ s = [
 ]
 
 def main(r):
-    input_set = set()
-    for idx, val in enumerate(r):
-        normalized_val = val.lower() if isinstance(val, str) else val
-        input_set.add((idx, normalized_val))
-    for index, subset in enumerate(s):
-        if subset.issubset(input_set):
-            return index
-    return -1
+    input_set = {(idx, val.lower() if isinstance(val, str) else val) for idx, val in enumerate(r)}
+    matching_indices = [i for i in range(len(s)) if s[i].issubset(input_set)]
+    return matching_indices[0] if matching_indices else -1
 
-# Примеры вычислений
-print(main(['OZ', 'GDB', 2018, 2005]))  # 5
-print(main(['EAGLE', 'ARC', 2018, 1977]))  # 9
-print(main(['EAGLE', 'MIRAH', 2019, 2005]))  # 4
-print(main(['JAVA', 'MIRAH', 2018, 2005]))  # 3
-print(main(['JAVA', 'ARC', 2001, 2005]))  # 6
+# Example calls to the main function
+result1 = main(['OZ', 'GDB', 2018, 2005])
+result2 = main(['EAGLE', 'ARC', 2018, 1977])
+result3 = main(['EAGLE', 'MIRAH', 2019, 2005])
+result4 = main(['JAVA', 'MIRAH', 2018, 2005])
+result5 = main(['JAVA', 'ARC', 2001, 2005])
