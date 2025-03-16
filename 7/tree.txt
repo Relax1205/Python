@@ -1,0 +1,291 @@
+Реализовать функцию для вычисления дерева решений:
+Дерево:
+x[1]->'Mirah'->x[2]->2001->x[0]->'Java'->0
+x[1]->'Mirah'->x[2]->2001->x[0]->'Eagle'->1
+x[1]->'Mirah'->x[2]->2001->x[0]->'OZ'->2
+x[1]->'Mirah'->x[2]->2018->3
+x[1]->'Mirah'->x[2]->2019->4
+x[1]->'GDB'->5
+x[1]->'ARC'->x[0]->'Java'->x[3]->2005->6
+x[1]->'ARC'->x[0]->'Java'->x[3]->2003->7
+x[1]->'ARC'->x[0]->'Java'->x[3]->1977->8
+x[1]->'ARC'->x[0]->'Eagle'->9
+x[1]->'ARC'->x[0]->'OZ'->10
+Примеры результатов вычислений:
+
+main(['OZ', 'GDB', 2018, 2005]) = 5
+main(['EAGLE', 'ARC', 2018, 1977]) = 9
+main(['EAGLE', 'MIRAH', 2019, 2005]) = 4
+main(['JAVA', 'MIRAH', 2018, 2005]) = 3
+main(['JAVA', 'ARC', 2001, 2005]) = 6
+
+
+
+
+def zero(items, java_case, eagle_case, oz_case):
+    item = items[0].lower() if isinstance(items[0], str) else items[0]
+    if item == 'java':
+        return java_case
+    elif item == 'eagle':
+        return eagle_case
+    elif item == 'oz':
+        return oz_case
+
+
+def two(items, case_2001, case_2018, case_2019):
+    if items[2] == 2001:
+        return case_2001
+    elif items[2] == 2018:
+        return case_2018
+    elif items[2] == 2019:
+        return case_2019
+
+
+def three(items, case_2005, case_2003, case_1977):
+    if items[3] == 2005:
+        return case_2005
+    elif items[3] == 2003:
+        return case_2003
+    elif items[3] == 1977:
+        return case_1977
+
+
+def zero_arc(items, java_case, eagle_case, oz_case):
+    item = items[0].lower() if isinstance(items[0], str) else items[0]
+    if item == 'java':
+        return java_case
+    elif item == 'eagle':
+        return eagle_case
+    elif item == 'oz':
+        return oz_case
+
+
+def one(items, gdb_case, mirah_case, arc_case):
+    item = items[1].lower() if isinstance(items[1], str) else items[1]
+    if item == 'gdb':
+        return gdb_case
+    elif item == 'mirah':
+        return mirah_case
+    elif item == 'arc':
+        return arc_case
+
+
+def main(items):
+    return one(
+        items,
+        5,
+        two(
+            items,
+            zero(items, 0, 1, 2),
+            3,
+            4
+        ),
+        zero_arc(
+            items,
+            three(items, 6, 7, 8),
+            9,
+            10
+        )
+    )
+
+
+
+
+
+# Примеры вычислений
+print(main(['OZ', 'GDB', 2018, 2005]))  # 5
+print(main(['EAGLE', 'ARC', 2018, 1977]))  # 9
+print(main(['EAGLE', 'MIRAH', 2019, 2005]))  # 4
+print(main(['JAVA', 'MIRAH', 2018, 2005]))  # 3
+print(main(['JAVA', 'ARC', 2001, 2005]))  # 6
+def main(items):
+    normalized = [
+        str(item).lower() if isinstance(item, str) else item
+        for item in items
+    ]
+    conditions = [
+        ({1: 'gdb'}, 5),
+        ({1: 'mirah', 2: 2001, 0: 'java'}, 0),
+        ({1: 'mirah', 2: 2001, 0: 'eagle'}, 1),
+        ({1: 'mirah', 2: 2001, 0: 'oz'}, 2),
+        ({1: 'mirah', 2: 2018}, 3),
+        ({1: 'mirah', 2: 2019}, 4),
+        ({1: 'arc', 0: 'java', 3: 2005}, 6),
+        ({1: 'arc', 0: 'java', 3: 2003}, 7),
+        ({1: 'arc', 0: 'java', 3: 1977}, 8),
+        ({1: 'arc', 0: 'eagle'}, 9),
+        ({1: 'arc', 0: 'oz'}, 10),
+    ]
+    for condition, result in conditions:
+        if all(
+            normalized[idx] == value
+            for idx, value in condition.items()
+        ):
+            return result
+    return -1
+
+
+# Примеры вычислений
+print(main(['OZ', 'GDB', 2018, 2005]))  # 5
+print(main(['EAGLE', 'ARC', 2018, 1977]))  # 9
+print(main(['EAGLE', 'MIRAH', 2019, 2005]))  # 4
+print(main(['JAVA', 'MIRAH', 2018, 2005]))  # 3
+print(main(['JAVA', 'ARC', 2001, 2005]))  # 6
+def zero(items, java_case, eagle_case, oz_case):
+    match items[0].lower() if isinstance(items[0], str) else items[0]:
+        case 'java':
+            return java_case
+        case 'eagle':
+            return eagle_case
+        case 'oz':
+            return oz_case
+
+
+def two(items, case_2001, case_2018, case_2019):
+    match items[2]:
+        case 2001:
+            return case_2001
+        case 2018:
+            return case_2018
+        case 2019:
+            return case_2019
+
+
+def three(items, case_2005, case_2003, case_1977):
+    match items[3]:
+        case 2005:
+            return case_2005
+        case 2003:
+            return case_2003
+        case 1977:
+            return case_1977
+
+
+def zero_arc(items, java_case, eagle_case, oz_case):
+    match items[0].lower() if isinstance(items[0], str) else items[0]:
+        case 'java':
+            return java_case
+        case 'eagle':
+            return eagle_case
+        case 'oz':
+            return oz_case
+
+
+def one(items, gdb_case, mirah_case, arc_case):
+    match items[1].lower() if isinstance(items[1], str) else items[1]:
+        case 'gdb':
+            return gdb_case
+        case 'mirah':
+            return mirah_case
+        case 'arc':
+            return arc_case
+
+
+def main(items):
+    return one(
+        items,
+        5,
+        two(
+            items,
+            zero(items, 0, 1, 2),
+            3,
+            4
+        ),
+        zero_arc(
+            items,
+            three(items, 6, 7, 8),
+            9,
+            10
+        )
+    )
+
+# Примеры вычислений
+print(main(['OZ', 'GDB', 2018, 2005]))  # 5
+print(main(['EAGLE', 'ARC', 2018, 1977]))  # 9
+print(main(['EAGLE', 'MIRAH', 2019, 2005]))  # 4
+print(main(['JAVA', 'MIRAH', 2018, 2005]))  # 3
+print(main(['JAVA', 'ARC', 2001, 2005]))  # 6
+
+s = [
+    {(1, 'mirah'), (2, 2001), (0, 'java')},
+    {(1, 'mirah'), (2, 2001), (0, 'eagle')},
+    {(1, 'mirah'), (2, 2001), (0, 'oz')},
+    {(1, 'mirah'), (2, 2018)},
+    {(1, 'mirah'), (2, 2019)},
+    {(1, 'gdb')},
+    {(1, 'arc'), (0, 'java'), (3, 2005)},
+    {(1, 'arc'), (0, 'java'), (3, 2003)},
+    {(1, 'arc'), (0, 'java'), (3, 1977)},
+    {(1, 'arc'), (0, 'eagle')},
+    {(1, 'arc'), (0, 'oz')}
+]
+
+def main(r):
+    input_set = set()
+    for idx, val in enumerate(r):
+        normalized_val = val.lower() if isinstance(val, str) else val
+        input_set.add((idx, normalized_val))
+    for index, subset in enumerate(s):
+        if subset.issubset(input_set):
+            return index
+    return -1
+
+# Примеры вычислений
+print(main(['OZ', 'GDB', 2018, 2005]))  # 5
+print(main(['EAGLE', 'ARC', 2018, 1977]))  # 9
+print(main(['EAGLE', 'MIRAH', 2019, 2005]))  # 4
+print(main(['JAVA', 'MIRAH', 2018, 2005]))  # 3
+print(main(['JAVA', 'ARC', 2001, 2005]))  # 6
+class Tree:
+    def __init__(self, number, top, topcon, mid, midcon, down, downcon):
+        self.number = number
+        self.cases = [
+            (top, topcon),
+            (mid, midcon),
+            (down, downcon)
+        ]
+
+    def find(self, mas):
+        if self.number >= len(mas):
+            return -1
+        current_value = mas[self.number]
+        for expected_value, consequence in self.cases:
+            if current_value == expected_value:
+                return self._process_consequence(consequence, mas)
+        return -1
+
+    def _process_consequence(self, consequence, mas):
+        if isinstance(consequence, int):
+            return consequence
+        return consequence.find(mas)
+
+
+def main(mas):
+    normalized_mas = [
+        x.lower() if isinstance(x, str) else x
+        for x in mas
+    ]
+    java_3_node = Tree(
+        3, 2005, 6, 2003, 7, 1977, 8
+    )
+    arc_0_node = Tree(
+        0, "java", java_3_node, "eagle", 9, "oz", 10
+    )
+    mirah_0_node = Tree(
+        0, "java", 0, "eagle", 1, "oz", 2
+    )
+    mirah_2_node = Tree(
+        2, 2001, mirah_0_node, 2018, 3, 2019, 4
+    )
+    root = Tree(
+        1, "gdb", 5, "arc", arc_0_node, "mirah", mirah_2_node
+    )
+    return root.find(normalized_mas)
+
+# Примеры вычислений
+print(main(['OZ', 'GDB', 2018, 2005]))  # 5
+print(main(['EAGLE', 'ARC', 2018, 1977]))  # 9
+print(main(['EAGLE', 'MIRAH', 2019, 2005]))  # 4
+print(main(['JAVA', 'MIRAH', 2018, 2005]))  # 3
+print(main(['JAVA', 'ARC', 2001, 2005]))  # 6
+Это мои решения, можешь реализовать как-то по другому, pep 8, без комментариев
