@@ -1,17 +1,44 @@
-def main(items):
-    items = [x.lower() if isinstance(x, str) else x for x in items]
-    
-    zero_dict = {"java": 0, "eagle": 1, "oz": 2}
-    two_dict = {2001: zero_dict.get(items[0], -1), 2018: 3, 2019: 4}
-    three_dict = {2005: 6, 2003: 7, 1977: 8}
-    zero_arc_dict = {
-        "java": three_dict.get(items[3], -1), "eagle": 9, "oz": 10}
-    one_dict = {
-        "gdb": 5, "mirah": two_dict.get(items[2], -1),
-        "arc": zero_arc_dict.get(items[0], -1)
+class Subset:
+    def __init__(self, index, elements):
+        self.index = index
+        self.elements = elements
+
+    def is_subset(self, input_set):
+        return all(elem in input_set for elem in self.elements)
+
+
+subsets = [
+    Subset(0, [(1, 'mirah'), (2, 2001), (0, 'java')]),
+    Subset(1, [(1, 'mirah'), (2, 2001), (0, 'eagle')]),
+    Subset(2, [(1, 'mirah'), (2, 2001), (0, 'oz')]),
+    Subset(3, [(1, 'mirah'), (2, 2018)]),
+    Subset(4, [(1, 'mirah'), (2, 2019)]),
+    Subset(5, [(1, 'gdb')]),
+    Subset(6, [(1, 'arc'), (0, 'java'), (3, 2005)]),
+    Subset(7, [(1, 'arc'), (0, 'java'), (3, 2003)]),
+    Subset(8, [(1, 'arc'), (0, 'java'), (3, 1977)]),
+    Subset(9, [(1, 'arc'), (0, 'eagle')]),
+    Subset(10, [(1, 'arc'), (0, 'oz')])
+]
+
+
+def normalize_input(r):
+    return {
+        (idx, val.lower() if isinstance(val, str) else val)
+        for idx, val in enumerate(r)
     }
 
-    return one_dict.get(items[1], -1)
+
+def find_subset_index(input_set):
+    for subset in subsets:
+        if subset.is_subset(input_set):
+            return subset.index
+    return -1
+
+
+def main(r):
+    input_set = normalize_input(r)
+    return find_subset_index(input_set)
 
 
 # Примеры вычислений
