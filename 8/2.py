@@ -1,17 +1,17 @@
 def main(value: int):
-    I1 = value & 0b111111
-    I2 = (value >> 6) & 0b111111
-    I3 = (value >> 12) & 0b1111111
-    I4 = (value >> 19) & 0b1111
-    I5 = (value >> 23) & 0b1
-    return (
-        hex(I1),
-        hex(I2),
-        hex(I3),
-        hex(I4),
-        hex(I5)
+    shifts_and_masks = [
+        (0, 0b111111),
+        (6, 0b111111),
+        (12, 0b1111111),
+        (19, 0b1111),
+        (23, 0b1)
+    ]
+    return tuple(
+        map(
+            lambda sm: hex((value >> sm[0]) & sm[1]),
+            shifts_and_masks
+        )
     )
-
 
 print(main(9116495))  # ('0xf', '0x2d', '0x31', '0x1', '0x1')
 print(main(4986078))  # ('0x1e', '0x13', '0x41', '0x9', '0x0')
